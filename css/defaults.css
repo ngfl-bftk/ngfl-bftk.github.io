@@ -1,0 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+
+:root {
+    --color1: #203e7e;
+    --color2: #ffffff;
+    --color3: #22cccc;
+    --color4: #111155;
+    --color5: #aaaa55;
+    --color6: #227777;
+    --font: "Ubuntu", sans-serif;
+}

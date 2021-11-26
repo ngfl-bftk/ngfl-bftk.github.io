@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Header</title>
+    <link rel="stylesheet" href="css/defaults.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/header.css">
+    <script src="js/header.js"></script>
+    <link rel="icon" href="./favicon.ico">
+</head>
+<body>
+    <a target="_top" href="index.html"><img id="logo" draggable="false" src="assets/Vector.svg"/></a>
+    <div id="nav">
+        <div><a target="_top" href="https://ngfl.meb.k12.tr/">Okulumuz</a></div>
+        <div><a target="_top" href="all-blogs.html">Tüm Bloglar</a></div>
+        <div><a target="_top" href="https://github.com/ngfl-bftk/ngfl-bftk.github.io/issues">Geri Bildirim</a></div>
+        <div><!--Seperator--></div>
+        <input type="text" onkeypress="search();" placeholder="Bloglarda Arayın" />
+    </div>
+    <svg id="search" onclick="if(document.querySelector('input').style.visibility=='visible'){document.querySelector('input').style.visibility='hidden';}else{document.querySelector('input').style.visibility='visible'}" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>
+</body>
+</html>

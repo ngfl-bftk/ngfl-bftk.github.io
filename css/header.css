@@ -1,0 +1,77 @@
+body{
+    background: var(--color4) !important;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+#logo, div#nav > div, svg{
+    cursor: pointer;
+}
+
+#logo{
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    width: 50px;
+}
+
+div#nav{
+    position: fixed;
+    color: var(--color2);
+    width: calc(100% - 80px);
+    right: 10px;
+    top: 10px;
+    display: grid;
+    grid-template-columns: 100px 100px 100px auto 150px;
+}
+
+div#nav > div, input{
+    text-align: center;
+    position: relative;
+    top: calc(50vh - 10px);
+    transform: translate(0px,-50%);
+}
+
+@media only screen and (max-width: 600px) {
+    div#nav {
+        grid-template-columns: auto auto auto 0px 50px;
+    }
+    div#nav > input{
+        position: fixed;
+        top: 50vh;
+        width: calc(100% - 133px);
+        left: 70px;
+        height: 50px;
+        visibility: hidden;
+        font-size: 18px;
+    }
+    svg#search{
+        visibility: visible !important;
+    }
+}
+
+div#nav > input{
+    background-color: var(--color1);
+    border: none;
+    color: var(--color2);
+}
+
+@media only screen and (min-width: 601px) {
+    div#nav > input{
+        visibility: visible !important;
+    }
+}
+
+svg#search{
+    color: var(--color2);
+    position: fixed;
+    top: 20px;
+    right: 15px;
+    width: 30px;
+    visibility: hidden;
+}
+
+a{
+    color: inherit !important;
+    text-decoration: inherit !important;
+}

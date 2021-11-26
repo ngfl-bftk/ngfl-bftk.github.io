@@ -1,0 +1,21 @@
+#blog-list{
+    position: fixed;
+    top: 70px;
+    left: 0px;
+    width: 100%;
+    height: calc(100% - 70px);
+}
+
+a{
+    color: var(--color2);
+    text-decoration: none;
+}
+
+div.blog{
+    position: relative;
+    left: 10%;
+    margin: 30px;
+    width: 90%;
+    font-size: 32px;
+    font-weight: 700;
+}
