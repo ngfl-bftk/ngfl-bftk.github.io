@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BFTK - Blog Düzenleyici</title>
+    <link rel="stylesheet" href="css/defaults.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        #lists, #objects{
+            position: fixed;
+            left: 0%;
+            width: 100%;
+            height: 50%;
+            overflow: auto;
+        }
+
+        #lists{
+            top: 0%;
+            background: var(--color4);
+        }
+
+        #objects{
+            bottom: 0%;
+            background: var(--color1);
+        }
+
+        *{
+            color: var(--color2);
+            font-size: 18px;
+        }
+
+        button, input, textarea, select, option{
+            background: var(--color4);
+            border: none;
+            border-radius: 3px;
+            margin: 4px;
+        }
+
+        button{
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        objects=[];
+        function download(){
+            t=new Date();var _filename=""+t.getFullYear();
+            if(t.getMonth().toString().length==2){_filename+=t.getMonth()}else{_filename+="0"+t.getMonth()}
+            if(t.getDate().toString().length==2){_filename+=t.getDate()}else{_filename+="0"+t.getDate()}
+            if(t.getHours().toString().length==2){_filename+=t.getHours()}else{_filename+="0"+t.getHours()}
+            if(t.getMinutes().toString().length==2){_filename+=t.getMinutes()}else{_filename+="0"+t.getMinutes()}
+            document.querySelector("#download-file").href="data:text/plain,"+JSON.stringify({"head":{"title":document.querySelector("#blog_info_title").value},"body":objects});
+            document.querySelector("#download-file").download=_filename+"_"+document.querySelector("#blog_info_title").value+".json";
+            document.querySelector("#download-file").click();
+        }
+        function updateText(){
+            var _temp="";
+            objects.forEach((e,i)=>{_temp+=i+": "+JSON.stringify(e)+"\n"});
+            document.querySelector("#lists").innerText=_temp;
+        }
+        moveObject = (_from, _to) => {
+            var _temp = objects[_from];
+            objects.splice(_from, 1);
+            objects.splice(_to, 0, _temp);
+            updateText();
+        }
+    </script>
+</head>
+<body>
+    <div id="lists"></div>
+    <div id="objects">
+        Makale'nin Başlığı:<input id="blog_info_title" type="text" />
+        <br><br>
+        <button onclick="objects.push({'type':'text','text':document.querySelector('#blog_text_text').value});document.querySelector('#blog_text_text').value='';updateText();">Yazı Ekle</button><br><textarea id="blog_text_text"></textarea><br>
+        <button onclick="objects.push({'type':'unsplash','image':document.querySelector('#blog_unsplash_image').value});document.querySelector('#blog_unsplash_image').value='';updateText();">Unsplash'tan Resim Ekle</button>Resmin ID'si:<input id="blog_unsplash_image" type="text" title="Örn: g9bwKSqjyJs" /><br>
+        <button onclick="objects.push({'type':'youtube','video':document.querySelector('#blog_youtube_video').value});document.querySelector('#blog_youtube_video').value='';updateText();">YouTube'tan Video Ekle</button>Videonun ID'si:<input id="blog_youtube_video" type="text" title="Örn: dQw4w9WgXcQ" /><br>
+        <button onclick="objects.push({'type':'link','link':document.querySelector('#blog_link_link').value,'text':document.querySelector('#blog_link_text').value});document.querySelector('#blog_link_link').value='';document.querySelector('#blog_link_text').value='';updateText();">Link Ekle</button>Link:<input type="text" id="blog_link_link" title="Örn: https://www.example.com" />Yazı:<input type="text" id="blog_link_text" title="Örn: Example'ın Websitesi" /><br>
+        <button onclick="objects.push({'type':'comment','comment':document.querySelector('#blog_command_command').value});document.querySelector('#blog_command_command').value='';updateText();">Yorum Ekle</button>Yorum:<input id="blog_command_command" type="text" title="Örn: Bu bir yorumdur" /><br>
+        <button onclick="objects.push({'type':'list','list':document.querySelector('#blog_list_list').value.split('`')});document.querySelector('#blog_list_list').value='';updateText();">Liste Ekle</button>Liste: (`: Yeni Madde İşareti)<input type="text" id="blog_list_list" title="Örn: Elma ` Armut ` Portakal" /><br>
+        <button onclick="objects.push({'type':'image','image':document.querySelector('#blog_image_image').value});document.querySelector('#blog_image_image').value='';updateText();">Resim Ekle</button>Adresi: <input type="text" id="blog_image_image" title="Örn: https://www.example.com/example.png" /><br>
+        <button onclick="objects.push({'type':'video','video':document.querySelector('#blog_video_video').value});document.querySelector('#blog_video_video').value='';updateText();">Video Ekle</button>Adresi: <input type="text" id="blog_video_video" title="Örn: https://www.example.com/example.mp4" /><br>
+        <button onclick="objects.push({'type':'sound','sound':document.querySelector('#blog_sound_sound').value});document.querySelector('#blog_sound_sound').value='';updateText();">Ses Ekle</button>Adresi: <input type="text" id="blog_sound_sound" title="Örn: https://www.example.com/example.mp3" /><br>
+        <button onclick="objects.push({'type':'code','text':document.querySelector('#blog_code_code').value});document.querySelector('#blog_code_code').value='';updateText();">Kod Ekle (Metin olarak)</button><br><textarea id="blog_code_code" title="Örn: console.log('Hello World');"></textarea><br>
+        <button onclick="objects.push({'type':'website','url':document.querySelector('#blog_iframe_link').value});document.querySelector('#blog_iframe_link').value='';updateText();">Websitesi Ekle</button>Link:<input type="text" id="blog_iframe_link" title="Örn: https://www.example.com" /><br>
+        <button onclick="objects.push({'type':'table','table':'Not Supported Now :/'});updateText();">Tablo Ekle</button>Yükseklik:<input type="number" min="1" max="50" id="blog_table_width" title="Örn: 2" />Genişlik:<input id="blog_table_height" type="number" min="1" max="50" title="Örn: 2" />(`: Yeni Hücre İşareti)<input id="blog_table_cells" type="text" title="Örn: Meyveler ` Sebzeler ` Armut ` Borokoli" /><br>
+        <button onclick="objects.push({'type':'h'+document.querySelector('#blog_title_size').value,'title':document.querySelector('#blog_title_text').value});document.querySelector('#blog_title_text').value='';updateText();">Başlık Ekle</button>Büyüklük:<select id="blog_title_size"><option value="1">Çok Büyük</option><option value="2">Büyük</option><option value="3">Orta</option><option value="4">Küçük</option><option value="5">Çok Küçük</option><option value="6">En Küçük</option></select>Başlık:<input type="text" id="blog_title_text" title="Örn: Bu bir başlıktır" />
+        <br><br>
+        <button onclick="moveObject(document.querySelector('#blog_move_from').value,document.querySelector('#blog_move_to').value);">Taşı</button>Buradan:<input min="0" type="number" id="blog_move_from" />Buraya:<input type="number" min="0" id="blog_move_to" /><br>
+        <button onclick="object=objects.splice(document.querySelector('blog_delete_number').value,1);updateText();">Sil</button>:<input type="number" min="0" id="blog_delete_number" /><br>
+        <button onclick="download();">İndir</button><a hidden id="download-file"></a>
+    </div>
+</body>
+</html>
