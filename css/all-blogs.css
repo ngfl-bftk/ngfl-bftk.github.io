@@ -15,7 +15,16 @@ div.blog{
     position: relative;
     left: 10%;
     margin: 30px;
-    width: 90%;
+    width: calc(80% - 60px);
     font-size: 32px;
     font-weight: 700;
+}
+
+div.blog-name{
+    float: left;
+}
+
+div.blog-date{
+    font-size: 10px;
+    color: var(--color3);
 }

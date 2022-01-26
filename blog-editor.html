@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -86,7 +86,7 @@
         <button onclick="objects.push({'type':'h'+document.querySelector('#blog_title_size').value,'title':document.querySelector('#blog_title_text').value});document.querySelector('#blog_title_text').value='';updateText();">Başlık Ekle</button>Büyüklük:<select id="blog_title_size"><option value="1">Çok Büyük</option><option value="2">Büyük</option><option value="3">Orta</option><option value="4">Küçük</option><option value="5">Çok Küçük</option><option value="6">En Küçük</option></select>Başlık:<input type="text" id="blog_title_text" title="Örn: Bu bir başlıktır" />
         <br><br>
         <button onclick="moveObject(document.querySelector('#blog_move_from').value,document.querySelector('#blog_move_to').value);">Taşı</button>Buradan:<input min="0" type="number" id="blog_move_from" />Buraya:<input type="number" min="0" id="blog_move_to" /><br>
-        <button onclick="object=objects.splice(document.querySelector('blog_delete_number').value,1);updateText();">Sil</button>:<input type="number" min="0" id="blog_delete_number" /><br>
+        <button onclick="object=objects.splice(document.querySelector('#blog_delete_number').value,1);updateText();">Sil</button>:<input type="number" min="0" id="blog_delete_number" /><br>
         <button onclick="download();">İndir</button><a hidden id="download-file"></a>
     </div>
 </body>

@@ -64,3 +64,11 @@ xhttp.onreadystatechange = function() {
 };
 xhttp.open("GET", "blogs/"+blog_name, true);
 xhttp.send();
+
+sharePage=(_platform)=>{
+    if(_platform=="twitter"){
+        window.open("https://twitter.com/intent/tweet?via=ngflbftk&url="+location.href+"&text="+blog_data.head.title);
+    } else if(_platform=="telegram"){
+        window.open("https://telegram.me/share/url?url="+location.href+"&text="+blog_data.head.title);
+    }
+}

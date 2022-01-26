@@ -71,3 +71,36 @@ td, tr {
     border: var(--color2) solid 1px;
     border-radius: 8px !important;
 }
+
+.sharePage{
+    position: fixed;
+    bottom: 16px;
+    left: 16px;
+    height: 24px;
+    width: 24px;
+}
+
+.sharePage:hover{
+    width: 108px;
+}
+
+.shareTwitter{
+    position: fixed;
+    bottom: 16px;
+    left: 50px;
+    height: 24px;
+    width: 24px;
+}
+
+.shareTelegram{
+    position: fixed;
+    bottom: 16px;
+    left: 84px;
+    height: 24px;
+    width: 24px;
+}
+
+svg{
+    width: 24px;
+    height: 24px;
+}
