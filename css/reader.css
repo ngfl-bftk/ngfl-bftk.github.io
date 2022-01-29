@@ -100,7 +100,17 @@ td, tr {
     width: 24px;
 }
 
+.readPage{
+    position: fixed;
+    top: 80px;
+    left: 10px;
+}
+
 svg{
     width: 24px;
     height: 24px;
+}
+
+* {
+    overflow-wrap: anywhere;
 }

@@ -21,7 +21,7 @@ function ms2time(ms) {
                 if(s>1){
                     return s + " saniye önce";
                 } else {
-                    return "NaN";
+                    return "0 saniye önce";
                 }
             }
         }

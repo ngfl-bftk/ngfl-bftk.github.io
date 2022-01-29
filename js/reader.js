@@ -60,6 +60,7 @@ xhttp.onreadystatechange = function() {
                 document.getElementById("blog").insertAdjacentHTML("beforeend","<h6>"+element["title"]+"</h6><br>");
             }
         });
+        createReadText();
     }
 };
 xhttp.open("GET", "blogs/"+blog_name, true);
@@ -70,5 +71,82 @@ sharePage=(_platform)=>{
         window.open("https://twitter.com/intent/tweet?via=ngflbftk&url="+location.href+"&text="+blog_data.head.title);
     } else if(_platform=="telegram"){
         window.open("https://telegram.me/share/url?url="+location.href+"&text="+blog_data.head.title);
+    }
+}
+
+readPagePlay=()=>{
+    if(readingNow>0){
+        speechSynthesis.resume();
+        document.querySelector(".readPagePlay").style.display="none";
+        document.querySelector(".readPagePause").style.display="unset";
+    } else {
+        readingNow=findEndOfText();
+        readPageSpeak.text=readPageText.substr(0,readingNow);
+        speechSynthesis.speak(readPageSpeak);
+        document.querySelector(".readPagePlay").style.display="none";
+        document.querySelector(".readPagePause").style.display="unset";
+        document.querySelector(".readPageStop").style.display="unset";
+    }
+}
+
+readPagePause=()=>{
+    speechSynthesis.pause();
+    document.querySelector(".readPagePlay").style.display="unset";
+    document.querySelector(".readPagePause").style.display="none";
+}
+
+readPageStop=()=>{
+    readingNow=0;
+    speechSynthesis.cancel();
+    document.querySelector(".readPagePlay").style.display="unset";
+    document.querySelector(".readPagePause").style.display="none";
+    document.querySelector(".readPageStop").style.display="none";
+};
+
+createReadText=()=>{
+    if(window.SpeechSynthesisUtterance!=undefined){
+        readPageText="";
+
+        blog_data["body"].forEach(element => {
+            if(element["type"]=="text"){
+                readPageText+=element["text"];
+            } else if(element["type"]=="list"){
+                element["list"].forEach(li => {
+                    readPageText+=li;
+                });
+            } else if(element["type"]=="h1"||element["type"]=="h2"||element["type"]=="h3"||element["type"]=="h4"||element["type"]=="h5"||element["type"]=="h6"){
+                readPageText+=element["title"];
+            }
+        });
+    }
+}
+
+findEndOfText=()=>{
+    for (let i = 0; i < 999; i++) {
+        if(readPageText[readingNow+readPageRange+i]=="."||readPageText[readingNow+readPageRange+i]==" "){
+            return readPageRange+i;
+        }
+    }
+}
+
+checkReadSupport=()=>{
+    if(window.SpeechSynthesisUtterance!=undefined){
+        readPageRange=50;
+        readPageSpeak=new SpeechSynthesisUtterance();
+        readPageSpeak.lang="tr";
+        document.querySelector(".readPage").hidden=false;
+        readingNow=0;
+        readPageSpeak.addEventListener("end",()=>{
+            if(readPageText.length>readingNow){
+                if(readingNow!=0){
+                    let readPageChar=findEndOfText();
+                    readPageSpeak.text=readPageText.substr(readingNow,readPageChar);
+                    speechSynthesis.speak(readPageSpeak);
+                    readingNow+=readPageChar;
+                }
+            }else{
+                readPageStop();
+            }
+        });
     }
 }
